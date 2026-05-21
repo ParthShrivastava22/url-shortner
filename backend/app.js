@@ -1,0 +1,21 @@
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./src/config/mongo.config.js";
+import shorturlRoute from "./src/modules/shorturl/shorturl.route.js";
+import errorMiddleware from "./src/shared/middleware/error.middleware.js";
+
+dotenv.config("./.env");
+
+const app = express();
+app.use(errorMiddleware);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/shorturl", shorturlRoute);
+app.use("/", shorturlRoute);
+
+app.listen(3000, () => {
+  connectDB();
+  console.log("Server is running on port 3000");
+});
