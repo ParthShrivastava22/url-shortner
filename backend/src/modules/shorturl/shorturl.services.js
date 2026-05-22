@@ -23,7 +23,8 @@ export const createShortUrlService = async (originalUrl) => {
 };
 
 // Service to get the long URL from a short ID
-export const getLongUrlService = asyncHandler(async (shortId) => {
+export const getLongUrlService = async (shortId) => {
   const longUrl = await getLongUrl(shortId);
+
   return longUrl;
-});
+};
