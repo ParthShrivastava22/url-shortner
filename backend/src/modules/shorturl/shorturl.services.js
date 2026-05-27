@@ -6,7 +6,6 @@ import {
 } from "./shorturl.dao.js";
 import AppError from "../../shared/errors/AppError.js";
 import ConflictError from "../../shared/errors/ConflictError.js";
-import asyncHandler from "../../shared/utils/asyncHandler.js";
 
 // Service to create a short URL
 export const createShortUrlService = async (originalUrl) => {
