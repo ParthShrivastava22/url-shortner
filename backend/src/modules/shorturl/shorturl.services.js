@@ -8,8 +8,12 @@ import AppError from "../../shared/errors/AppError.js";
 import ConflictError from "../../shared/errors/ConflictError.js";
 
 // Service to create a short URL
-export const createShortUrlService = async (originalUrl) => {
-  const shortId = generateNanoId();
+export const createShortUrlService = async (
+  originalUrl,
+  userId = null,
+  slug = null,
+) => {
+  const shortId = slug || generateNanoId();
 
   // Check for collision
   const existing = await getExistingShortUrl(shortId);
@@ -17,7 +21,7 @@ export const createShortUrlService = async (originalUrl) => {
     throw new ConflictError("Short URL already exists");
   }
 
-  await saveShortUrl(shortId, originalUrl);
+  await saveShortUrl(shortId, originalUrl, userId);
   return shortId;
 };
 

@@ -1,4 +1,4 @@
-import { findUserById } from "../user/user.service.js";
+import { findUserByIdService } from "../user/user.service.js";
 import { verifyToken } from "./auth.utils.js";
 
 export const authMiddleware = async (req, res, next) => {
@@ -9,7 +9,7 @@ export const authMiddleware = async (req, res, next) => {
 
   try {
     const decoded = verifyToken(token);
-    const user = await findUserById(decoded.id);
+    const user = await findUserByIdService(decoded.id);
     if (!user) return res.status(401).json({ message: "Unauthorized" });
 
     req.user = user;

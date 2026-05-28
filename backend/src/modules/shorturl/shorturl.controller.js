@@ -7,16 +7,18 @@ import NotFoundError from "../../shared/errors/NotFoundError.js";
 import BadRequestError from "../../shared/errors/BadRequestError.js";
 
 export const createShortUrl = asyncHandler(async (req, res, next) => {
-  const { url } = req.body;
+  const { url, slug } = req.body;
 
   if (!url) {
     throw new BadRequestError("URL is required");
   }
 
-  const shortUrl = await createShortUrlService(url);
-  console.log(shortUrl);
+  const shortUrl = await createShortUrlService(url, req.user?._id, slug);
 
-  res.status(201).json({ shortUrl: process.env.APP_URL + "/" + shortUrl });
+  res.status(201).json({
+    shortId: shortUrl,
+    shortUrl: process.env.APP_URL + "/" + shortUrl,
+  });
 });
 
 export const redirectToLongUrl = asyncHandler(async (req, res, next) => {
