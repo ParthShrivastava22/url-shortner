@@ -11,7 +11,6 @@ dotenv.config("./.env");
 
 const app = express();
 
-app.use(errorMiddleware);
 app.use(cors());
 app.use(cookieParser());
 
@@ -21,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/shorturl", shorturlRoute);
 app.use("/api/auth", authRoute);
 app.use("/", shorturlRoute);
+
+app.use(errorMiddleware);
 
 app.listen(3000, () => {
   connectDB();
