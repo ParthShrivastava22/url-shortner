@@ -5,7 +5,6 @@ import connectDB from "./src/config/mongo.config.js";
 import shorturlRoute from "./src/modules/shorturl/shorturl.route.js";
 import authRoute from "./src/modules/auth/auth.route.js";
 import errorMiddleware from "./src/shared/middleware/error.middleware.js";
-import { authMiddleware } from "./src/modules/auth/auth.middleware.js";
 import cors from "cors";
 
 dotenv.config("./.env");
@@ -18,7 +17,6 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(authMiddleware);
 
 app.use("/api/shorturl", shorturlRoute);
 app.use("/api/auth", authRoute);
